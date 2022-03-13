@@ -21,7 +21,7 @@ export const PiuCard: React.FC<PiuProps> = ({
     <>
       <S.PiuTemplate>
         <S.PiuInfo>
-          <S.PiuImg>{/*  */}</S.PiuImg>
+          <S.PiuImg src={image}>{/*  */}</S.PiuImg>
           <div>
             <S.PiuUserName>{name}</S.PiuUserName>
             <S.PiuText>{text}</S.PiuText>
