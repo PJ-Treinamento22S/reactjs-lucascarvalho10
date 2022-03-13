@@ -4,7 +4,7 @@ export const PiuTemplate = styled.div`
   display: flex;
   flex-direction: row;
 
-  width: 64rem;
+  width: 60rem;
   height: fit-content;
 
   /* sombra simples */
@@ -17,6 +17,7 @@ export const PiuTemplate = styled.div`
 
   padding: 2rem;
   position: relative;
+  word-wrap: break-word;
 `;
 
 export const PiuImg = styled.img`

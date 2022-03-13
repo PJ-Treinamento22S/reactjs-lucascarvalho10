@@ -1,0 +1,23 @@
+.cancel-btn {
+  width: 12rem;
+  height: 4rem;
+
+  background: #f8f9fa;
+  border-radius: 1rem;
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 0px 1.6rem;
+
+  border: none;
+
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 1.6rem;
+  line-height: 3.2rem;
+
+  color: #e34444;
+  transition: background 0.3s;
+}
