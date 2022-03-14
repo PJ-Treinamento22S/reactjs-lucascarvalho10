@@ -1,8 +1,8 @@
 import React from "react";
 import * as S from "./style";
-import heart from "../Assets/heart-post.svg";
-import trash from "../Assets/more-option.svg";
-import share from "../Assets/share.svg";
+import heart from "../../Assets/heart-post.svg";
+import trash from "../../Assets/more-option.svg";
+import share from "../../Assets/share.svg";
 
 interface PiuProps {
   image: string;

@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import * as S from "../Main/style";
 import { PiuCard } from ".";
+import { SearchPiu } from "../Modals";
+import { SearchModalContext } from "../../App";
+
 import api from "../../services/api";
 import "./style.css";
 
@@ -38,6 +41,7 @@ interface Piu {
 
 export const AllPosts: React.FC = () => {
   const [pius, getPius] = useState<Piu[]>([]);
+  const { searchState } = useContext(SearchModalContext);
 
   useEffect(() => {
     async function getPosts() {
@@ -50,7 +54,7 @@ export const AllPosts: React.FC = () => {
     getPosts();
   }, []);
   // Ordenando os pius cronologicamente
-  const inOrder = pius.sort(function (a, b) {
+  const inOrder = pius.sort((a, b) => {
     return a.created_at > b.created_at
       ? -1
       : a.created_at < b.created_at
@@ -60,8 +64,8 @@ export const AllPosts: React.FC = () => {
   return (
     <>
       <S.FeedPostsFrame>
-        {/* Aqui, ficam os piuwers */}
         <S.AllPostsStyle className="all-posts-style">
+          {searchState && <SearchPiu></SearchPiu>}
           {inOrder.map((piu: Piu) => (
             <PiuCard
               key={piu.id}
@@ -74,7 +78,6 @@ export const AllPosts: React.FC = () => {
         </S.AllPostsStyle>
 
         <S.OtherPostStyle>
-          {/* Páginas do menu esquerdo */}
           <S.OtherStyle>
             <S.MainHeader>Trending</S.MainHeader>
           </S.OtherStyle>

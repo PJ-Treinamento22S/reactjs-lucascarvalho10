@@ -74,3 +74,45 @@ export const RulesText = styled.p`
   line-height: 3.2rem;
   color: #0077b6;
 `;
+
+export const SearchBtn = styled.input`
+  width: 12rem;
+  height: 4rem;
+
+  background: #48cae4;
+  border-radius: 1rem;
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 0 auto;
+
+  border: none;
+
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 1.6rem;
+  line-height: 3.2rem;
+
+  color: #f8f9fa;
+  transition: background 0.3s;
+`;
+
+const SearchText = styled.input`
+  width: 32rem;
+  height: 4rem;
+
+  padding: 1.6rem;
+
+  background: #f8f9fa;
+  margin: 4.8rem auto 1.6rem auto;
+  border: 0.04rem solid rgb(82, 82, 82);
+
+  border-radius: 1.6rem;
+
+  font-family: Poppins;
+  font-style: normal;
+  font-size: 1.6rem;
+  line-height: 3.2rem;
+`;
