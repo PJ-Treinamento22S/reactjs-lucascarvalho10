@@ -2,18 +2,29 @@ import React, { useState, useContext } from "react";
 import { MainHeader } from "../Main/style";
 import * as S from "./style";
 import "./style.css";
-import { PiuSentBtn } from "../Buttons";
+import { PiuSentBtn, CancelPiuBtn } from "../Buttons";
 import { SearchModalContext } from "../../App";
+import api from "../../services/api";
 
 interface NewPiuModalProps {
   setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const NewPiuModal: React.FC<NewPiuModalProps> = ({ setModalOpen }) => {
-  const [modalInfos, setModalInfo] = useState<number>(0);
+  const [piuText, setPiuText] = useState("");
+
+  async function handlePost() {
+    if (piuText.length > 0) {
+      setModalOpen(false);
+      await api.post("/pius", {
+        text: piuText,
+      });
+    }
+  }
 
   return (
     <>
+      <S.BlurBackground></S.BlurBackground>
       <S.ModalWindow>
         <S.HeaderModalPiu>
           <MainHeader>PiuFriends</MainHeader>
@@ -22,21 +33,25 @@ const NewPiuModal: React.FC<NewPiuModalProps> = ({ setModalOpen }) => {
         <S.SendingWindow>
           <S.PiuText
             maxLength={140}
-            onInput={(e) => setModalInfo(e.currentTarget.value.length)}
+            onInput={(e) => setPiuText(e.currentTarget.value)}
           ></S.PiuText>
           <S.AlignBottom>
             <div>
-              <PiuSentBtn content="Piu!"></PiuSentBtn>
-              <button
-                className="cancel-btn"
-                onClick={() => setModalOpen(false)}
-              >
-                Cancelar
-              </button>
+              <PiuSentBtn
+                content="Piu!"
+                onClick={() => handlePost()}
+              ></PiuSentBtn>
+
+              <CancelPiuBtn
+                content="Cancelar"
+                offClick={() => setModalOpen(false)}
+              ></CancelPiuBtn>
             </div>
             <div>
               <S.RulesText>
-                {modalInfos < 140 ? modalInfos + "/140" : "Tamanho máximo"}
+                {piuText.length < 140
+                  ? piuText.length + "/140"
+                  : "Tamanho máximo"}
               </S.RulesText>
             </div>
           </S.AlignBottom>

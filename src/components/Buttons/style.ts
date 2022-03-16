@@ -22,6 +22,10 @@ export const PiuBtn = styled.button`
 
   color: #f8f9fa;
   transition: background 0.3s;
+  &:hover {
+    background: #2d7d8d;
+    cursor: pointer;
+  }
 `;
 
 export const CancelBtn = styled.button`
@@ -46,4 +50,8 @@ export const CancelBtn = styled.button`
 
   color: #e34444;
   transition: background 0.3s;
+  &:hover {
+    background: #d5d7d8;
+    cursor: pointer;
+  }
 `;

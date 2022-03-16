@@ -23,4 +23,7 @@ export const IconFeed = styled.img`
   cursor: pointer;
   transition: 0.4s;
   transform: scale(0.8);
+  &:hover {
+    transform: scale(1);
+  }
 `;

@@ -80,4 +80,7 @@ export const PiuIconIndividual = styled.img`
   margin-left: 0.4rem;
 
   transition: all 0.3s;
+  &:hover {
+    transform: scale(1.2);
+  }
 `;

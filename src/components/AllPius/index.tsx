@@ -1,22 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import * as S from "./style";
 import heart from "../../Assets/heart-post.svg";
 import trash from "../../Assets/more-option.svg";
 import share from "../../Assets/share.svg";
 
+import api from "../../services/api";
+
 interface PiuProps {
   image: string;
   name: string;
   text: string;
-  totalLikes?: number;
 }
 
-export const PiuCard: React.FC<PiuProps> = ({
-  image,
-  name,
-  text,
-  totalLikes,
-}) => {
+export const PiuCard: React.FC<PiuProps> = ({ image, name, text }) => {
+  // const [likeCounter, setLikeCounter] = useState<string>("");
+  async function handleLikes() {
+    await api.post("/pius/like", {
+      piu_id: "profcarvalho",
+    });
+  }
+
   return (
     <>
       <S.PiuTemplate>
@@ -28,10 +31,14 @@ export const PiuCard: React.FC<PiuProps> = ({
           </div>
         </S.PiuInfo>
         <S.PiuIcons>
-          <S.PiuIconIndividual alt="nada" src={share}></S.PiuIconIndividual>
-          <span>{totalLikes}0</span>
-          <S.PiuIconIndividual alt="nada" src={heart}></S.PiuIconIndividual>
-          <S.PiuIconIndividual alt="nada" src={trash}></S.PiuIconIndividual>
+          <S.PiuIconIndividual alt="share" src={share}></S.PiuIconIndividual>
+
+          <S.PiuIconIndividual
+            alt="like"
+            src={heart}
+            onClick={() => handleLikes()}
+          ></S.PiuIconIndividual>
+          <S.PiuIconIndividual alt="del" src={trash}></S.PiuIconIndividual>
         </S.PiuIcons>
       </S.PiuTemplate>
     </>

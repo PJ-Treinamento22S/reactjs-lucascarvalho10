@@ -1,5 +1,16 @@
 import styled from "styled-components";
 
+export const BlurBackground = styled.div`
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  background: #000;
+  opacity: 0.9;
+  top: 0;
+  left: 0;
+  z-index: 99;
+`;
+
 export const ModalWindow = styled.div`
   position: fixed;
   top: 10.4rem;
