@@ -23,15 +23,6 @@ export const FeedPostsFrame = styled.div`
   margin: 0 0 2.4rem 0;
 `;
 
-export const AllPostsStyle = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: -3.2rem;
-  margin-top: 1.6rem;
-  height: 64rem;
-  overflow-y: scroll;
-`;
-
 export const OtherPostStyle = styled.div`
   width: 48rem;
 `;

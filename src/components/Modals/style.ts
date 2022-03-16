@@ -108,9 +108,13 @@ export const SearchBtn = styled.input`
 
   color: #f8f9fa;
   transition: background 0.3s;
+  &:hover {
+    background: #82c4f4;
+    cursor: pointer;
+  }
 `;
 
-const SearchText = styled.input`
+export const SearchText = styled.input`
   width: 32rem;
   height: 4rem;
 

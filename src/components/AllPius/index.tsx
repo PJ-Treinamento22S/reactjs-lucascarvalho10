@@ -1,46 +1,58 @@
-import React, { useState } from "react";
-import * as S from "./style";
-import heart from "../../Assets/heart-post.svg";
-import trash from "../../Assets/more-option.svg";
-import share from "../../Assets/share.svg";
+import React, { useEffect, useState, useContext } from "react";
+import * as S from "../Main/style";
+import { PiuCard } from "../Piu/index";
+import { AllPostsStyle } from "./style";
+import { SearchPiu } from "../Modals";
+import { SearchModalContext } from "../../App";
+import { Piu } from "../../interfaces/piu";
 
 import api from "../../services/api";
 
-interface PiuProps {
-  image: string;
-  name: string;
-  text: string;
-}
+export const AllPosts: React.FC = () => {
+  const [pius, getPius] = useState<Piu[]>([]);
+  const { searchState } = useContext(SearchModalContext);
 
-export const PiuCard: React.FC<PiuProps> = ({ image, name, text }) => {
-  // const [likeCounter, setLikeCounter] = useState<string>("");
-  async function handleLikes() {
-    await api.post("/pius/like", {
-      piu_id: "profcarvalho",
-    });
-  }
-
+  useEffect(() => {
+    async function getPosts() {
+      const response = await api.get("/pius");
+      getPius(response.data);
+      console.log(response.data);
+    }
+    getPosts();
+  }, []);
+  // Ordenando os pius cronologicamente
+  const inOrder = pius.sort((a, b) => {
+    return a.created_at > b.created_at
+      ? -1
+      : a.created_at < b.created_at
+      ? 1
+      : 0;
+  });
   return (
     <>
-      <S.PiuTemplate>
-        <S.PiuInfo>
-          <S.PiuImg src={image}>{/*  */}</S.PiuImg>
-          <div>
-            <S.PiuUserName>{name}</S.PiuUserName>
-            <S.PiuText>{text}</S.PiuText>
-          </div>
-        </S.PiuInfo>
-        <S.PiuIcons>
-          <S.PiuIconIndividual alt="share" src={share}></S.PiuIconIndividual>
+      <S.FeedPostsFrame>
+        <AllPostsStyle className="all-posts-style">
+          {searchState && <SearchPiu></SearchPiu>}
+          {inOrder.map((piu: Piu) => (
+            <PiuCard
+              key={piu.id}
+              image={piu.user.photo}
+              name={piu.user.username}
+              text={piu.text}
+            />
+          ))}
+        </AllPostsStyle>
 
-          <S.PiuIconIndividual
-            alt="like"
-            src={heart}
-            onClick={() => handleLikes()}
-          ></S.PiuIconIndividual>
-          <S.PiuIconIndividual alt="del" src={trash}></S.PiuIconIndividual>
-        </S.PiuIcons>
-      </S.PiuTemplate>
+        <S.OtherPostStyle>
+          <S.OtherStyle>
+            <S.MainHeader>Trending</S.MainHeader>
+          </S.OtherStyle>
+
+          <S.OtherStyle>
+            <S.MainHeader>Mais Pessoas</S.MainHeader>
+          </S.OtherStyle>
+        </S.OtherPostStyle>
+      </S.FeedPostsFrame>
     </>
   );
 };

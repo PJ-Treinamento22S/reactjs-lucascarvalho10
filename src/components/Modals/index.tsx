@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { MainHeader } from "../Main/style";
 import * as S from "./style";
-import "./style.css";
+
 import { PiuSentBtn, CancelPiuBtn } from "../Buttons";
 import { SearchModalContext } from "../../App";
 import api from "../../services/api";
@@ -49,9 +49,7 @@ const NewPiuModal: React.FC<NewPiuModalProps> = ({ setModalOpen }) => {
             </div>
             <div>
               <S.RulesText>
-                {piuText.length < 140
-                  ? piuText.length + "/140"
-                  : "Tamanho máximo"}
+                {piuText.length === 0 ? "Piu Vazio!" : piuText.length + "/140"}
               </S.RulesText>
             </div>
           </S.AlignBottom>
@@ -65,15 +63,15 @@ export const SearchPiu: React.FC = () => {
   const { setSearchState } = useContext(SearchModalContext);
   return (
     <>
-      <input type="text" placeholder="username" className="search-text"></input>
-      <input
+      <S.SearchText type="text" placeholder="username" />
+
+      <S.SearchBtn
         type="submit"
         value="Pesquisar"
-        className="search-btn"
         onClick={() => {
           setSearchState(false);
         }}
-      ></input>
+      ></S.SearchBtn>
     </>
   );
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import * as S from "./style";
-import { AllPosts } from "../AllPius/frame_feed";
+import { AllPosts } from "../AllPius";
 
 export const Main: React.FC = () => {
   return (
