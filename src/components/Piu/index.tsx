@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import * as S from "./style";
 import heart from "../../Assets/heart-post.svg";
+import heart_fill from "../../Assets/heart-post-fill.svg";
+
 import trash from "../../Assets/more-option.svg";
 import share from "../../Assets/share.svg";
 
@@ -10,28 +12,44 @@ interface PiuProps {
   image: string;
   name: string;
   text: string;
+  id: string;
 }
 
-export const PiuCard: React.FC<PiuProps> = ({ image, name, text }) => {
-  const [likeCounter, setLikeCounter] = useState<any>();
+export const PiuCard: React.FC<PiuProps> = ({ image, name, text, id }) => {
+  //Alterar cor ao clicar no like
+  const [likeBtn, setLikeBtn] = useState(heart);
 
-  async function handleLikes() {
+  async function handleLikes(id: string) {
     await api
       .post("/pius/like", {
-        piu_id: "profcarvalho",
+        piu_id: id,
       })
-      .then((response) => alert(response))
-      .catch((err) => alert(err));
+      .then((response) =>
+        response.data.operation === "like"
+          ? setLikeBtn(heart_fill)
+          : setLikeBtn(heart)
+      )
+      .catch((err) => console.log(err));
   }
 
-  async function handleFavorite() {
-    await api
-      .post("pius/favorite", {
-        piu_id: "profcarvalho",
-      })
-      .then((res) => alert(res))
-      .catch((err) => alert(err));
+  // const memoizedErrors = useMemo(() => <Errors active={showErrors} />, [showErrors]);
+  const memoizedLikes = useMemo(
+    () => (
+      <S.PiuIconIndividual
+        alt="like"
+        src={likeBtn}
+        onClick={() => handleLikes(id)}
+      ></S.PiuIconIndividual>
+    ),
+    [likeBtn]
+  );
+
+  async function handleDelete(id: string) {
+    await api.delete(`/pius`, {
+      data: { piu_id: id },
+    });
   }
+
   return (
     <>
       <S.PiuTemplate>
@@ -43,19 +61,14 @@ export const PiuCard: React.FC<PiuProps> = ({ image, name, text }) => {
           </div>
         </S.PiuInfo>
         <S.PiuIcons>
-          <S.PiuIconIndividual
-            alt="favorite"
-            src={share}
-            onClick={() => handleFavorite()}
-          ></S.PiuIconIndividual>
+          <S.PiuIconIndividual alt="favorite" src={share}></S.PiuIconIndividual>
 
-          <span>{likeCounter}</span>
+          {memoizedLikes}
           <S.PiuIconIndividual
-            alt="like"
-            src={heart}
-            onClick={() => handleLikes()}
+            alt="del"
+            src={trash}
+            onClick={() => handleDelete(id)}
           ></S.PiuIconIndividual>
-          <S.PiuIconIndividual alt="del" src={trash}></S.PiuIconIndividual>
         </S.PiuIcons>
       </S.PiuTemplate>
     </>

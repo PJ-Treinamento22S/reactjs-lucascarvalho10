@@ -39,6 +39,7 @@ export const AllPosts: React.FC = () => {
               image={piu.user.photo}
               name={piu.user.username}
               text={piu.text}
+              id={piu.id}
             />
           ))}
         </AllPostsStyle>
