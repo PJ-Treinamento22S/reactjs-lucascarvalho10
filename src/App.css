@@ -36,3 +36,23 @@
     transform: rotate(360deg);
   }
 }
+
+/* ================================= Other screen size ===========================*/
+
+@media all and (max-width: 1400px) {
+  html {
+    font-size: 62.5%;
+  }
+}
+
+@media all and (max-width: 960px) {
+  html {
+    font-size: 58%;
+  }
+}
+
+@media all and (max-width: 768px) {
+  html {
+    font-size: 48%;
+  }
+}

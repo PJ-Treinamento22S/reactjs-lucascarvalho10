@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const BlurBackground = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   position: absolute;
   background: #000;
   opacity: 0.9;
