@@ -14,17 +14,15 @@ export const AllPosts: React.FC = () => {
   const { pius, getPius } = useContext(PiuContext);
 
   const { searchState } = useContext(SearchModalContext);
-  const [reload, setReload] = useState(true);
 
   useEffect(() => {
-    reload ? setReload(false) : setReload(true);
     async function getPosts() {
       const response = await api.get("/pius");
       getPius(response.data);
       console.log(response.data);
     }
     getPosts();
-  }, [reload]);
+  }, [pius]);
   // Ordenando os pius cronologicamente
   const inOrder = pius.sort((a, b) => {
     return a.created_at > b.created_at
